@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/**
+ *
+ * date    2015-08-06 13:56:39
+ * authors 陈小雪
+ * email   shell_chen@yeah.net
+ * version v1.0.1
+ */
+
+body{
+    padding: 0;
+}
+hr{
+margin-top: 18px;
+  margin-bottom: 18px;
+  border: 0;
+  border-top: 1px solid #eeeeee
+}
+.custome-row{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.col-margin{
+    margin-bottom: 0px;
+}
+.col-div-align-left{
+    text-align: left;
+}
+.col-div-align-right{
+    text-align: right;
+}
+.col-center-div{
+    text-align: center;
+}
+.header-logo-div{
+    height: 40px;
+    border-bottom: 1px solid #eeeeee;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>scloud</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+ <link rel="stylesheet" type="text/css" href="/static/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/static/bootswatch/bootstrap-slate.min.css">
+ <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<script type="text/javascript" src="/static/js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/marked/marked.min.js"></script>
+
+<script type="text/javascript" src="/static/layer/layer.js"></script>
+<script type="text/javascript" src="/static/js/scloud.js"></script>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="row">
+            <div class="navbar navbar-default navbar-radius0 col-rg">
+                <div class="col-md-12 header-div">
+                    {% if info[3] == 0 %}
+                        <input type="checkbox" id="md-post" checked/>
+                    {% else %}
+                        <input type="checkbox" id="md-post"/>
+                    {% endif %}
+                        是否发布
+                    <a class="btn btn-default" data-toggle="modal" data-target="#tex-list-modal">
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-default new-tex">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 left-col">
+                {% if tex %}
+                    <textarea class="input-text" id="markdown-text">{{ tex }}</textarea>
+                {% else %}
+                    <textarea class="input-text" id="markdown-text"></textarea>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+
+<div class="waring-layer-mode">
+    <div class="row">
+        <div class="col-md-12">
+            新建一个文稿，并保存本文稿?
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <a href="#" class="btn btn-primary cancle-add">取消</a>
+            <a href="#" class="btn btn-default query-add">确定</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal-custom" id="tex-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-custom" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">文章列表</h4>
+      </div>
+      <div class="modal-body tex-list-body">
+        <div class="list-group">
+            {% if config %}
+                {% if config.get("index") %}
+                    {% for Id, info in config.get("index").items() %}
+            <a class ="list-group-item" href="/mdeditor/?id={{Id}}">
+                        {{ info[0] }}
+            </a>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    localStorage.setItem("id", GetUrlParams().id);
+    tomarked();
+
+    setInterval("tomarked()", 1000);
+    setInterval("save_md()", 1000*10);
+
+    $(".new-tex").click(function(){
+        $(".new-tex")[0]._data = layer.open({
+            type:1,
+            content:$(".waring-layer-mode"),
+        });
+    });
+
+    $(".query-add").click(function(){
+        new_md();
+    });
+
+});
+
+
+</script>
+
+</body>
+</html>

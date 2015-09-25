@@ -148,7 +148,11 @@ def get_tex_info(tex):
             continue
 
         if line.startswith(title_mark):
+            if title:
+                continue
             hs = line.split(" ",1)
+            if len(hs) < 2:
+                continue
             title = hs[1].strip()
 
         if line.startswith(tags_mark):

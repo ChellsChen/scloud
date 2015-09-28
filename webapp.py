@@ -10,7 +10,6 @@ import logging.handlers
 from flask import Flask, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
-from flask.ext.restful import Api
 
 import imp
 

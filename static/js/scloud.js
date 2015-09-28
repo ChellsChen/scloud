@@ -7,10 +7,11 @@
 
 var tomarked = function(){
     var markstr = $("#markdown-text").val();
+    markstr = smarked(markstr);
     $(".content").html(marked(markstr));
 }
 
-function save_md(){
+function save_md(call_back){
     var md_tex = $("#markdown-text").val();
     var html_tex = $(".content").html();
     var id = localStorage.getItem("id");
@@ -36,7 +37,10 @@ function save_md(){
         data: data,
         success:function(data){
             if(data.status != 0){
-                layer.alert(data.message);
+                alert(data.message);
+            }
+            if(call_back){
+                call_back();
             }
         }
     });
@@ -49,7 +53,6 @@ function new_md(){
         dataType: "json",
         method:"post",
         success:function(data){
-            layer.close($(".new-tex")[0]._data);
             localStorage.setItem("id", data.id);
             window.location.href="/mdeditor?id="+data.id;
         }
@@ -82,6 +85,40 @@ function  GetUrlParams () {
         }
     }
     return reslut;
+}
+
+function smarked(src){
+    var lines = src.split("\n");
+    var tags_list = [];
+    for(var i in lines){
+        if(i >=5){
+            break;
+        }
+        var line = lines[i];
+        line = $.trim(line);
+        if(line.indexOf("tags:") != 0){
+            continue;
+        }
+
+        var tags = line.split(":", 2)[1];
+        if(!tags){
+            continue;
+        }
+
+        tags = tags.split(",");
+        for(var j in tags){
+            var tag = "<span class='tags-tex'>";
+            tag += tags[j];
+            tag += "</span>";
+            if(tag){
+                var s = tag;
+                tags_list.push(s);
+            }
+        }
+        lines[i] = tags_list.join(" ");
+    }
+    src = lines.join("\n");
+    return src;
 }
 
 

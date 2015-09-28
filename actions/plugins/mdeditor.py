@@ -11,7 +11,7 @@ from flask import render_template, request, redirect
 from flaskexts import ClassViews
 
 from mdeditor.helper import getid
-from webapp import STORE_PATH
+from setting import STORE_PATH
 from mdeditor.storage import STORAGE, get_tex_info
 
 name = "mdeditor"
@@ -38,8 +38,8 @@ class MdEditor(ClassViews):
             return "404 not found!"
 
         info = Storage.index.get(str(Id))
-
         config = Storage.get_config()
+
         return render_template("scloud.html", config = config,
             tex = md_tex, info = info)
 

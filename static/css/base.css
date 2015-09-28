@@ -74,7 +74,29 @@ body{
     color: #c8c8c8;
 
 }
-
-
+div.list-group-toggle-div{
+    display: none;
+    margin-bottom: 0px;
+    background-color: transparent;
+}
+a.tag-list{
+    color: #00aaff;
+    border: none;
+    margin-bottom: 1px;
+    background-color: #2e3338;
+}
+a.index-list{
+    border: none;
+    background-color: #2e3338;
+    padding-left: 30px;
+}
+a.index-list:hover{
+    background-color: #1199ff;
+}
+span.tags-tex{
+    background-color: #d1d1d1;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
 
 

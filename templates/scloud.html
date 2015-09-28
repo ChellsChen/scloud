@@ -12,7 +12,7 @@
  <link rel="stylesheet" type="text/css" href="/static/css/base.css">
 <script type="text/javascript" src="/static/js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/static/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="/static/marked.min.js"></script>
+<script type="text/javascript" src="/static/marked.js"></script>
 
 <script type="text/javascript" src="/static/layer/layer.js"></script>
 <script type="text/javascript" src="/static/js/scloud.js"></script>
@@ -78,11 +78,20 @@
       <div class="modal-body tex-list-body">
         <div class="list-group">
             {% if config %}
-                {% if config.get("index") %}
-                    {% for Id, info in config.get("index").items() %}
-            <a class ="list-group-item" href="/mdeditor/?id={{Id}}">
-                        {{ info[0] }}
-            </a>
+                {% if config.get("tags") %}
+                    {% for tag, indexs in config.get("tags").items() %}
+                        <a class="list-group-item tag-list" href="#">
+                            <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                            {{ tag }}
+                            <span class="badge">{{ indexs|length() }}</span>
+                        </a>
+                        <div class="list-group list-group-toggle-div">
+                        {% for index in indexs %}
+                        <a class="list-group-item index-list" href="/mdeditor/?id={{index}}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            {{ config.get("index").get(index)[0] }}</a>
+                        {% endfor %}
+                        </div>
                     {% endfor %}
                 {% endif %}
             {% endif %}
@@ -101,7 +110,7 @@
         <h4 class="modal-title">注意</h4>
       </div>
       <div class="modal-body">
-        <p>本文稿已保存，并建立新的文稿？</p>
+        <p>当前文稿已保存，确认建立新文稿？</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -118,15 +127,18 @@ $(document).ready(function(){
     tomarked();
 
     setInterval("tomarked()", 1000);
-    setInterval("save_md()", 1000*60);
+    setInterval("save_md()", 1000*10);
 
     $(".query-add").click(function(){
         new_md();
     });
     $(".save-tex").click(function(){
-        save_md();
-        location.reload();
-
+        save_md(function(){
+            location.reload();
+        });
+    });
+    $(".tag-list").click(function(){
+        $(this).next(".list-group-toggle-div").toggle(100);
     });
 
 });

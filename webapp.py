@@ -21,9 +21,6 @@ from flaskexts import Sunshine, load_restful
 BASEPATH = os.path.dirname(os.path.realpath(__file__))
 SHARE_PATH = os.path.join(BASEPATH, "share")
 LOG_PATH = os.path.join(BASEPATH, "log")
-STORE_PATH = os.path.join(BASEPATH, "store")
-if not os.path.isdir(STORE_PATH):
-    os.mkdir(STORE_PATH, 0777)
 
 if not os.path.isdir(LOG_PATH):
     os.mkdir(LOG_PATH, 0777)

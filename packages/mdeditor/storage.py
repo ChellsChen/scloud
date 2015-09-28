@@ -118,15 +118,27 @@ class STORAGE(object):
         self.index[str(Id)] = (title, tags, c_time, post)
         Id = str(Id)
 
-        for tag in tags:
-            t = self.tags.get(tag)
-            if t is None:
-                t = []
+        for t in tags:
+            tag_ids = self.tags.get(t)
+            if tag_ids is None:
+                tag_ids = []
 
-            if Id in t:
-                continue
-            t.append(Id)
-            self.tags[tag] = t
+            if Id not in tag_ids:
+                tag_ids.append(Id)
+
+            self.tags[t] = tag_ids
+
+        for tag, Ids in self.tags.items():
+            if tag not in tags:
+                if Id in Ids:
+                    idindex = Ids.index(Id)
+                    del Ids[idindex]
+
+            if len(Ids) == 0:
+                del self.tags[tag]
+
+            else:
+                self.tags[tag] = Ids
 
         self.save_config()
 
@@ -163,7 +175,9 @@ def get_tex_info(tex):
 
     if not title:
         title = "undefine"
-        tags = "undefine"
+
+    if not tags or not tags[0]:
+        tags = ["undefine"]
 
     return (title, tags)
 

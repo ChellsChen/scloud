@@ -75,8 +75,10 @@ class Sunshine(object):
 
     def list_routes(self):
         output = []
-        for rule in self.app.url_map.iter_rules():
+        ctx = self.app.test_request_context('/')
+        ctx.push()
 
+        for rule in self.app.url_map.iter_rules():
             options = {}
             for arg in rule.arguments:
                 options[arg] = "[{0}]".format(arg)
@@ -94,6 +96,8 @@ class Sunshine(object):
             lines.append("%s ===> %s" %(u.ljust(l), e))
 
         logging.info("\n".join(lines))
+
+        ctx.pop()
 
 
 def _get_attr(model, view):

@@ -23,37 +23,37 @@ from webapp import logger, init_app
 from webapp import APP, APP_DB
 from models.user import User
 
-manager = Manager(APP)
+# manager = Manager(APP)
 
 def run_application():
     APP.run(host="0.0.0.0", port=8888, threaded=True, debug=True)
 
 def run_wsgi():
     from flup.server.fcgi import WSGIServer
-    WSGIServer(APP, bindAddress=('0.0.0.0', 8088), debug=False, multithreaded=True).run()
+    WSGIServer(APP, bindAddress=('0.0.0.0', 8088), debug=True, multithreaded=True).run()
 
 def web_start():
     init_app()
     run_wsgi()
 
 
-@manager.command
-def run():
-    web_start()
+# @manager.command
+# def run():
+#     web_start()
 
-@manager.command
-def createdb():
-    """init mysql tables"""
-    init_app()
-    try:
-        APP_DB.create_all()
-    except:
-        pass
-    u = User("manager", "manager@fraudmetrix.cn", "123456", "0")
-    u.confirmed = True
-    APP_DB.session.add(u)
-    APP_DB.session.commit()
+# @manager.command
+# def createdb():
+#     """init mysql tables"""
+#     init_app()
+#     try:
+#         APP_DB.create_all()
+#     except:
+#         pass
+#     u = User("manager", "manager@fraudmetrix.cn", "123456", "0")
+#     u.confirmed = True
+#     APP_DB.session.add(u)
+#     APP_DB.session.commit()
 
 if __name__ == "__main__":
-    manager.run()
-    # web_start()
+    # manager.run()
+    web_start()

@@ -30,11 +30,11 @@ def run_application():
 
 def run_wsgi():
     from flup.server.fcgi import WSGIServer
-    WSGIServer(APP, bindAddress=('0.0.0.0', 8080), debug=False, multithreaded=True).run()
+    WSGIServer(APP, bindAddress=('0.0.0.0', 8088), debug=False, multithreaded=True).run()
 
 def web_start():
     init_app()
-    run_application()
+    run_wsgi()
 
 
 @manager.command
@@ -56,3 +56,4 @@ def createdb():
 
 if __name__ == "__main__":
     manager.run()
+    # web_start()

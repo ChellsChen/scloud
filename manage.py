@@ -34,7 +34,7 @@ def run_wsgi():
 
 def web_start():
     init_app()
-    run_wsgi()
+    run_application()
 
 
 # @manager.command

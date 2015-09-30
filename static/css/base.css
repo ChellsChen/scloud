@@ -11,7 +11,7 @@ body{
     color: #a0a0a0;
 }
 .input-text{
-    height: 100%;
+    height: 800px;
     width: 100%;
     border:none;
     padding-left: 20px;
@@ -24,7 +24,7 @@ body{
 }
 .left-col{
     border-right: 1px dashed #BBB;
-    height: 800px;
+    height: inherit;
 }
 .row{
     margin-left: 0px;

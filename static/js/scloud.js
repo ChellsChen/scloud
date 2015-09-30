@@ -6,9 +6,20 @@
  */
 
 var tomarked = function(){
-    var markstr = $("#markdown-text").val();
+    var md_obj = $("#markdown-text");
+    var tx_obj = $(".content");
+    var markstr = md_obj.val();
+    var md_height = md_obj.height();
+    var tx_height = tx_obj.height();
+
     markstr = smarked(markstr);
-    $(".content").html(marked(markstr));
+    tx_obj.html(marked(markstr));
+
+    if (Number(md_height) < Number(tx_height)){
+        md_obj.css("height", tx_height);
+    }
+    console.log(md_height, tx_height);
+
 }
 
 function save_md(call_back){

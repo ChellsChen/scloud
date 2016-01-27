@@ -49,7 +49,7 @@ def web_start():
 #         APP_DB.create_all()
 #     except:
 #         pass
-#     u = User("manager", "manager@fraudmetrix.cn", "123456", "0")
+#     u = User("manager", "manager@test.cn", "123456", "0")
 #     u.confirmed = True
 #     APP_DB.session.add(u)
 #     APP_DB.session.commit()
